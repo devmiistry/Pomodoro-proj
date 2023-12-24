@@ -1,0 +1,1 @@
+This is a pomodoro web application created using html, javascript, css and developed with react. It has functionality of pomodoro, short break or long break along with starting, pausing and reseting the timers.
