@@ -11,29 +11,25 @@ export default function Pomodoro() {
         short: 1,
         long: 2
     }
+    
     const [minutes, setMinutes] = useState(25);
     const [seconds, setSeconds] = useState(0);
     const [displayMessage, setDisplayMessage] = useState(false);
     const [status, setStatus] = useState(STATUS.default);
     const [timer, setTimer] = useState(TIMER.pomo)
+    const [sessions, setSessions] = useState(0);
     const intervalRef = React.useRef();
 
     function handler() {
         if (seconds === 0) {
             if (minutes === 0) {
                 if (timer === 0) {
-                    setDisplayMessage("Take a break! Next session starts in:");
-                    setTimer(TIMER.short);
-                    setMinutes(5);
-                    setSeconds(0);
+                    short();
                 } else {
                     setDisplayMessage("Session completed!");
-                    setTimer(TIMER.pomo);
-                    setMinutes(25);
-                    setSeconds(0);
-                    setStatus(pause);
+                    setSessions(sessions + 1);
+                    stop();
                 }
-                setDisplayMessage(!displayMessage);
             } else {
                 setMinutes(minutes - 1);
                 setSeconds(59);
@@ -69,14 +65,14 @@ export default function Pomodoro() {
 
     const pomo = () => {
         setTimer(TIMER.pomo);
-        setMinutes(25);
-        setSeconds(0);
+        setMinutes(0);
+        setSeconds(1);
         setDisplayMessage("Time to focus! Take a break in:");
     }
     const short = () => {
         setTimer(TIMER.short);
-        setMinutes(5);
-        setSeconds(0);
+        setMinutes(0);
+        setSeconds(5);
         setDisplayMessage("A short break to recharge!");
     }
     const long = () => {
@@ -99,6 +95,9 @@ export default function Pomodoro() {
         <button className="btn" id="startBtn" onClick={() => start()}>START</button>
         <button className="btn" id="pauseBtn" onClick={() => pause()}>PAUSE</button>
         <button className="btn" id="stopBtn" onClick={() => stop()}>RESET</button>
+        <div className="stats">
+            Sessions completed: {sessions}
+        </div>
     </div>
 
 }
