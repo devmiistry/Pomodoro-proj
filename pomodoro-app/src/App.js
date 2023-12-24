@@ -6,8 +6,7 @@ function App() {
   return (
     <div className="App">
       <Pomodoro />
-    </div>
+    </div>    
   );
 }
-
 export default App;
